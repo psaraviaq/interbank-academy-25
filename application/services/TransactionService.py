@@ -18,3 +18,11 @@ class TransactionService:
             elif t.type.value == "Débito":
                 debit_total += t.amount
         return credit_total - debit_total
+
+    def get_highest_transaction(self) -> Optional[Transaction]:
+        highest_transaction = None
+        for t in self.transactions:
+            # * Update highest_transaction if None or t.amount is higher
+            if not highest_transaction or t.amount > highest_transaction.amount:
+                highest_transaction = t
+        return highest_transaction
