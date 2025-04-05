@@ -40,3 +40,13 @@ def test_highest_transaction(transaction_service):
 
 def test_empty_highest_transaction(empty_service):
     assert empty_service.get_highest_transaction() == None
+
+
+# * --------------------- get_transaction_counts() ---------------------
+def test_transaction_counts(transaction_service):
+    expected_counts = (3, 2)
+    assert transaction_service.get_transaction_counts() == expected_counts
+
+
+def test_empty_transaction_counts(empty_service):
+    assert empty_service.get_transaction_counts() == (0, 0)
