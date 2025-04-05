@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 from domain.models import Transaction
 
@@ -26,3 +26,14 @@ class TransactionService:
             if not highest_transaction or t.amount > highest_transaction.amount:
                 highest_transaction = t
         return highest_transaction
+
+    def get_transaction_counts(self) -> Tuple[int, int]:
+        credit_count = 0
+        debit_count = 0
+        for t in self.transactions:
+            # * Increment count based on transaction type.
+            if t.type.value == "Crédito":
+                credit_count += 1
+            elif t.type.value == "Débito":
+                debit_count += 1
+        return credit_count, debit_count
