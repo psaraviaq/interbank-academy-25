@@ -29,5 +29,14 @@ def test_final_balance(transaction_service):
 
 
 def test_empty_final_balance(empty_service):
-    expected_balance = 0.0
-    assert empty_service.get_final_balance() == expected_balance
+    assert empty_service.get_final_balance() == 0.0
+
+
+# * --------------------- get_highest_transaction() ---------------------
+def test_highest_transaction(transaction_service):
+    expected_transaction = Transaction(id="3", type="Crédito", amount=200.0)
+    assert transaction_service.get_highest_transaction() == expected_transaction
+
+
+def test_empty_highest_transaction(empty_service):
+    assert empty_service.get_highest_transaction() == None
