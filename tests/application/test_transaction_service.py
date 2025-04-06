@@ -1,6 +1,7 @@
 import pytest
 
 from application.services import TransactionService
+from domain.enums import TransactionType
 from domain.models import Transaction
 
 
@@ -8,11 +9,11 @@ from domain.models import Transaction
 def transaction_service():
     return TransactionService(
         [
-            Transaction(id="1", type="Crédito", amount=100.0),
-            Transaction(id="2", type="Débito", amount=50.0),
-            Transaction(id="3", type="Crédito", amount=200.0),
-            Transaction(id="4", type="Débito", amount=75.0),
-            Transaction(id="5", type="Crédito", amount=150.0),
+            Transaction(id="1", type=TransactionType.CREDIT, amount=100.0),
+            Transaction(id="2", type=TransactionType.DEBIT, amount=50.0),
+            Transaction(id="3", type=TransactionType.CREDIT, amount=200.0),
+            Transaction(id="4", type=TransactionType.DEBIT, amount=75.0),
+            Transaction(id="5", type=TransactionType.CREDIT, amount=150.0),
         ]
     )
 
@@ -34,7 +35,9 @@ def test_empty_final_balance(empty_service):
 
 # * --------------------- get_highest_transaction() ---------------------
 def test_highest_transaction(transaction_service):
-    expected_transaction = Transaction(id="3", type="Crédito", amount=200.0)
+    expected_transaction = Transaction(
+        id="3", type=TransactionType.CREDIT, amount=200.0
+    )
     assert transaction_service.get_highest_transaction() == expected_transaction
 
 

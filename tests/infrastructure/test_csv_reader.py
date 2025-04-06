@@ -1,5 +1,6 @@
 import pytest
 
+from domain.enums import TransactionType
 from domain.models import Transaction
 from infrastructure.data import read_transactions_from_csv
 
@@ -9,9 +10,9 @@ def test_read_valid_csv(tmp_path):
     csv_file = tmp_path / "data.csv"
     csv_file.write_text(data)
     expected_transactions = [
-        Transaction(id="1", type="Crédito", amount=100.0),
-        Transaction(id="2", type="Débito", amount=50.0),
-        Transaction(id="3", type="Crédito", amount=200.0),
+        Transaction(id="1", type=TransactionType.CREDIT, amount=100.0),
+        Transaction(id="2", type=TransactionType.DEBIT, amount=50.0),
+        Transaction(id="3", type=TransactionType.CREDIT, amount=200.0),
     ]
     assert read_transactions_from_csv(csv_file) == expected_transactions
 
