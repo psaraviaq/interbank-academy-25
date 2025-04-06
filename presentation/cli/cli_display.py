@@ -1,3 +1,4 @@
+import sys
 from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
@@ -36,3 +37,16 @@ def display_report(service: TransactionService):
         border_style="bright_blue",
     )
     console.print(panel)
+
+
+def display_error(message: str):
+    #! Display error message in a red panel
+    console = Console()
+    panel = Panel(
+        message,
+        title="Error",
+        title_align="left",
+        border_style="red",
+    )
+    console.print(panel)
+    sys.exit(1)
