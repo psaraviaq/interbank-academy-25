@@ -14,8 +14,8 @@ def read_transactions_from_csv(csv_file: str) -> List[Transaction]:
                 # * Convert row to a Transaction instance.
                 transaction = Transaction(
                     id=row["id"],
-                    type=TransactionType(row["type"]),
-                    amount=float(row["amount"]),
+                    type=TransactionType(row["tipo"]),
+                    amount=float(row["monto"]),
                 )
                 transactions.append(transaction)
         return transactions

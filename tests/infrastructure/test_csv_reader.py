@@ -5,7 +5,7 @@ from infrastructure.data import read_transactions_from_csv
 
 
 def test_read_valid_csv(tmp_path):
-    data = "id,type,amount\n1,Crédito,100.0\n2,Débito,50.0\n3,Crédito,200.0"
+    data = "id,tipo,monto\n1,Crédito,100.0\n2,Débito,50.0\n3,Crédito,200.0"
     csv_file = tmp_path / "data.csv"
     csv_file.write_text(data)
     expected_transactions = [
@@ -25,8 +25,8 @@ def test_file_not_found(tmp_path):
 @pytest.mark.parametrize(
     "data",
     [
-        "id,type,amount\n1,Crédito,100.0\n2,Débito,invalid",
-        "id,type,amount\n3,Credit,200.0\n4,Debit,75.0",
+        "id,tipo,monto\n1,Crédito,100.0\n2,Débito,invalid",
+        "id,tipo,monto\n3,Credit,200.0\n4,Debit,75.0",
     ],
 )
 def test_invalid_rows(tmp_path, data):
