@@ -16,10 +16,12 @@ def test_read_valid_csv(tmp_path):
     assert read_transactions_from_csv(csv_file) == expected_transactions
 
 
-def test_file_not_found(tmp_path):
+def test_file_not_found(tmp_path, capsys):
     csv_file = tmp_path / "not_found.csv"
-    with pytest.raises(FileNotFoundError):
+    with pytest.raises(SystemExit):
         read_transactions_from_csv(csv_file)
+    captured = capsys.readouterr()
+    assert "File not found" in captured.out
 
 
 @pytest.mark.parametrize(
@@ -29,8 +31,10 @@ def test_file_not_found(tmp_path):
         "id,tipo,monto\n3,Credit,200.0\n4,Debit,75.0",
     ],
 )
-def test_invalid_rows(tmp_path, data):
+def test_invalid_rows(tmp_path, data, capsys):
     csv_file = tmp_path / "data.csv"
     csv_file.write_text(data)
-    with pytest.raises(Exception):
+    with pytest.raises(SystemExit):
         read_transactions_from_csv(csv_file)
+    captured = capsys.readouterr()
+    assert "Error reading CSV file" in captured.out

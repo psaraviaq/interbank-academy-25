@@ -3,6 +3,7 @@ from typing import List
 
 from domain.enums import TransactionType
 from domain.models import Transaction
+from presentation.cli import display_error
 
 
 def read_transactions_from_csv(csv_file: str) -> List[Transaction]:
@@ -18,9 +19,10 @@ def read_transactions_from_csv(csv_file: str) -> List[Transaction]:
                     amount=float(row["monto"]),
                 )
                 transactions.append(transaction)
-        return transactions
     #! Handle errors: File not found or any other exception.
     except FileNotFoundError:
-        raise FileNotFoundError(f"File not found: {csv_file}")
+        display_error(f"File not found: {csv_file}")
     except Exception as e:
-        raise Exception(f"Error reading CSV file: {str(e)}")
+        display_error(f"Error reading CSV file: {str(e)}")
+
+    return transactions
