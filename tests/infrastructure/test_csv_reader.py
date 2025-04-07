@@ -8,7 +8,7 @@ from infrastructure.data import read_transactions_from_csv
 def test_read_valid_csv(tmp_path):
     data = "id,tipo,monto\n1,Crédito,100.0\n2,Débito,50.0\n3,Crédito,200.0"
     csv_file = tmp_path / "data.csv"
-    csv_file.write_text(data)
+    csv_file.write_text(data, "utf-8")
     expected_transactions = [
         Transaction(id="1", type=TransactionType.CREDIT, amount=100.0),
         Transaction(id="2", type=TransactionType.DEBIT, amount=50.0),
@@ -34,7 +34,7 @@ def test_file_not_found(tmp_path, capsys):
 )
 def test_invalid_rows(tmp_path, data, capsys):
     csv_file = tmp_path / "data.csv"
-    csv_file.write_text(data)
+    csv_file.write_text(data, "utf-8")
     with pytest.raises(SystemExit):
         read_transactions_from_csv(csv_file)
     captured = capsys.readouterr()

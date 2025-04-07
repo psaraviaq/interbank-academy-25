@@ -9,7 +9,7 @@ from presentation.cli import display_error
 def read_transactions_from_csv(csv_file: str) -> List[Transaction]:
     transactions = []
     try:
-        with open(csv_file, newline="") as file:
+        with open(csv_file, newline="", encoding="utf-8") as file:
             reader = csv.DictReader(file)
             for row in reader:
                 # * Convert row to a Transaction instance.

@@ -5,11 +5,13 @@ from application.services import TransactionService
 
 def main():
     try:
+        # * Parse input, load transactions, and show the report.
         csv_file = parse_arguments()
         transactions = read_transactions_from_csv(csv_file)
         service = TransactionService(transactions)
         display_report(service)
     except Exception as e:
+        #! Display an error if something goes wrong.
         display_error(f"An unexpected error occurred: {str(e)}")
 
 
