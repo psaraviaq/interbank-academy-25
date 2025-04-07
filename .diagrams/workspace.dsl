@@ -1,51 +1,42 @@
 workspace "Name" "Description" {
 
     model {
-        u = person "User"
-        ss = softwareSystem "Software System" {
-            wa = container "Web Application"
-            db = container "Database Schema" {
-                tags "Database"
-            }
+        user = person "Usuario" "Un usuario que ejecuta la aplicación CLI para procesar transacciones bancarias."
+
+        processor = softwareSystem "Procesador de Transacciones Bancarias" "Una herramienta CLI que procesa archivos CSV de transacciones bancarias y genera reportes." {
+            domain = container "Dominio" "Define las entidades y reglas esenciales del negocio."
+            application = container "Aplicación" "Implementa los procesos y cálculos para analizar transacciones."
+            infrastructure = container "Infraestructura" "Proporciona funcionalidad para leer archivos CSV."
+            presentation = container "Presentación" "Gestiona la visualización de reportes y la interacción con el usuario."
         }
 
-        u -> wa "Uses"
-        wa -> db "Reads from and writes to"
+        user -> presentation "Interacciona a través de la interfaz"
+        presentation -> infrastructure "Solicita lógica de negocio"
+        presentation -> application "Solicita acceso a datos"
+        infrastructure -> domain "Opera sobre las entidades definidas"
+        application -> domain "Transforma datos en entidades"
     }
 
     views {
-        systemContext ss "Diagram1" {
+        systemContext processor "Diagram1" {
             include *
             autolayout lr
         }
 
-        container ss "Diagram2" {
+        container processor "Diagram2" {
             include *
             autolayout lr
         }
 
         styles {
-            element "Element" {
-                color #ffffff
-            }
-            element "Person" {
-                background #ba1e75
-                shape person
-            }
             element "Software System" {
-                background #d92389
+                width 500
             }
-            element "Container" {
-                background #f8289c
-            }
-            element "Database" {
-                shape cylinder
+            element "Boundary:SoftwareSystem" {
+                fontSize 36
             }
         }
-    }
 
-    configuration {
-        scope softwaresystem
+        theme default
     }
-
 }
