@@ -64,10 +64,11 @@ La aplicación está diseñada siguiendo los principios de Clean Architecture, l
 
 4. **Capa de Presentación (Presentation Layer)**: Maneja la interacción con el usuario.
    - CLI: Interfaz de línea de comandos para recibir argumentos y mostrar resultados.
+  
+![structurizr-1-Diagram2](https://github.com/user-attachments/assets/6ecc3152-cb17-4e6c-ac83-3bf08b4e02d3)
 
 ### Decisiones de Diseño
 
-- **Separación de Responsabilidades**: Cada componente tiene una responsabilidad única y bien definida.
 - **Manejo de Errores**: Implementación de manejo de errores robusto para proporcionar mensajes claros al usuario.
 - **Testabilidad**: Diseño que facilita la escritura de pruebas unitarias para cada componente.
 - **Extensibilidad**: Arquitectura que permite agregar nuevas funcionalidades con cambios mínimos en el código existente.
@@ -77,31 +78,31 @@ La aplicación está diseñada siguiendo los principios de Clean Architecture, l
 ```
 interbank-academy-25/
 │
-├── domain/                     # Capa de dominio
-│   ├── models/                 # Modelos de dominio
-│   │   └── Transaction.py      # Clase Transaction
-│   └── enums/                  # Enumeraciones
-│       └── TransactionType.py  # Enum TransactionType
+├── domain/                           # Capa de dominio
+│   ├── models/                       # Modelos de dominio
+│   │   └── Transaction.py            # Clase Transaction
+│   └── enums/                        # Enumeraciones
+│       └── TransactionType.py        # Enum TransactionType
 │
-├── application/                # Capa de aplicación
-│   └── services/               # Servicios de aplicación
-│       └── TransactionService.py  # Servicio para procesar transacciones
+├── application/                      # Capa de aplicación
+│   └── services/                     # Servicios de aplicación
+│       └── TransactionService.py     # Servicio para procesar transacciones
 │
-├── infrastructure/             # Capa de infraestructura
-│   └── data/                   # Acceso a datos
-│       └── csv_reader.py       # Lectura de archivos CSV
+├── infrastructure/                   # Capa de infraestructura
+│   └── data/                         # Acceso a datos
+│       └── csv_reader.py             # Lectura de archivos CSV
 │
-├── presentation/               # Capa de presentación
-│   └── cli/                    # Interfaz de línea de comandos
-│       ├── cli_parser.py       # Parseo de argumentos de línea de comandos
-│       └── cli_display.py      # Visualización de resultados
+├── presentation/                     # Capa de presentación
+│   └── cli/                          # Interfaz de línea de comandos
+│       ├── cli_parser.py             # Parseo de argumentos de línea de comandos
+│       └── cli_display.py            # Visualización de resultados
 │
-├── tests/                      # Pruebas
-│   ├── domain/                 # Pruebas de la capa de dominio
-│   ├── application/            # Pruebas de la capa de aplicación
-│   └── infrastructure/         # Pruebas de la capa de infraestructura
+├── tests/                            # Pruebas
+│   ├── domain/                       # Pruebas de la capa de dominio
+│   ├── application/                  # Pruebas de la capa de aplicación
+│   └── infrastructure/               # Pruebas de la capa de infraestructura
 │
-├── main.py                     # Punto de entrada de la aplicación
-├── requirements.txt            # Dependencias del proyecto
-└── README.md                   # Documentación del proyecto
+├── main.py                           # Punto de entrada de la aplicación
+├── requirements.txt                  # Dependencias del proyecto
+└── README.md                         # Documentación del proyecto
 ```
