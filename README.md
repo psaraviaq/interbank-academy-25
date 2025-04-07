@@ -1,66 +1,107 @@
-# Reto Técnico: Procesamiento de Transacciones Bancarias (CLI)
+# Procesamiento de Transacciones Bancarias (CLI)
 
-## Objetivo:
+## Introducción
 
-Desarrolla una aplicación de línea de comandos (CLI) que procese un archivo CSV con transacciones bancarias y genere un reporte que incluya:
+Este proyecto es una aplicación de línea de comandos (CLI) que procesa un archivo CSV con transacciones bancarias y genera un reporte.
 
-- **Balance Final:**  
-  Suma de los montos de las transacciones de tipo "Crédito" menos la suma de los montos de las transacciones de tipo "Débito".
+El propósito de esta aplicación es proporcionar una herramienta simple pero efectiva para analizar transacciones bancarias y obtener información útil como el balance final, la transacción de mayor monto y el conteo de transacciones por tipo.
 
-- **Transacción de Mayor Monto:**  
-  Identificar el ID y el monto de la transacción con el valor más alto.
+## Características Principales
 
-- **Conteo de Transacciones:**  
-  Número total de transacciones para cada tipo ("Crédito" y "Débito").
+- **Cálculo de Balance**: Calcula el balance final considerando créditos y débitos.
+- **Identificación de Transacción Mayor**: Encuentra la transacción con el monto más alto.
+- **Conteo de Transacciones**: Cuenta el número de transacciones por tipo.
+- **Manejo de Errores**: Proporciona mensajes de error claros para problemas comunes.
+- **Interfaz CLI Amigable**: Interfaz de línea de comandos fácil de usar.
 
----
+## Instrucciones de Ejecución
 
-## Instrucciones
+### Requisitos Previos
 
-1. **Repositorio Base:**  
-   Clona o haz un fork del repositorio base disponible en:  
-   `https://github.com/codeableorg/interbank-academy-25`
+- Python 3.8 o superior
+- Pip (gestor de paquetes de Python)
 
-2. **Entrada de Datos:**  
-   La aplicación deberá leer un archivo CSV. Ejemplo de contenido:
+### Instalación de Dependencias
 
-   ```
-   id,tipo,monto
-   1,Crédito,100.00
-   2,Débito,50.00
-   3,Crédito,200.00
-   4,Débito,75.00
-   5,Crédito,150.00
-   ```
+```bash
+# Clonar el repositorio
+git clone https://github.com/psaraviaq/interbank-academy-25.git
+cd interbank-academy-25
 
-3. **Salida del Programa:**  
-   La aplicación debe mostrar el reporte final en la terminal.  
-   Ejemplo de salida:
+# Crear un entorno virtual (opcional pero recomendado)
+python -m venv .venv
+source .venv/Scripts/activate  # En Linux: .venv/bin/activate
 
-   ```
-   Reporte de Transacciones
-   ---------------------------------------------
-   Balance Final: 325.00
-   Transacción de Mayor Monto: ID 3 - 200.00
-   Conteo de Transacciones: Crédito: 3 Débito: 2
-   ```
+# Instalar dependencias
+pip install -r requirements.txt
+```
 
-4. **Lenguaje de Programación:**  
-   Utiliza el lenguaje de tu preferencia. Opciones recomendadas:
+### Ejecución de la Aplicación
 
-   - Python
-   - Java
-   - C#
-   - JavaScript (Node.js)
+```bash
+# Ejecutar la aplicación con un archivo CSV
+python main.py ruta/al/archivo.csv
 
-5. **README del Proyecto:**  
-   Incluye un archivo `README.md` con la siguiente estructura:
+# Ejemplo con el archivo de prueba incluido
+python main.py data.csv
+```
 
-   - **Introducción:** Breve descripción del reto y su propósito.
-   - **Instrucciones de Ejecución:** Cómo instalar dependencias y ejecutar la aplicación.
-   - **Enfoque y Solución:** Lógica implementada y decisiones de diseño.
-   - **Estructura del Proyecto:** Archivos y carpetas principales.
+## Enfoque y Solución
 
-6. **Documentación y Calidad del Código:**
-   - Código bien documentado y fácil de leer.
-   - Comentarios explicando pasos clave y lógica del programa.
+### Arquitectura
+
+La aplicación está diseñada siguiendo los principios de Clean Architecture, lo que permite una clara separación de responsabilidades y facilita el mantenimiento y la extensión del código.
+
+1. **Capa de Dominio (Domain Layer)**: Contiene las entidades y reglas de negocio centrales.
+   - Modelos: Representación de las transacciones bancarias.
+   - Enumeraciones: Tipos de transacciones (Crédito, Débito).
+
+2. **Capa de Aplicación (Application Layer)**: Contiene la lógica de aplicación y casos de uso.
+   - Servicios: Procesamiento de transacciones y cálculos.
+
+3. **Capa de Infraestructura (Infrastructure Layer)**: Maneja la interacción con recursos externos.
+   - Lectura de archivos CSV: Carga de datos de transacciones.
+
+4. **Capa de Presentación (Presentation Layer)**: Maneja la interacción con el usuario.
+   - CLI: Interfaz de línea de comandos para recibir argumentos y mostrar resultados.
+
+### Decisiones de Diseño
+
+- **Separación de Responsabilidades**: Cada componente tiene una responsabilidad única y bien definida.
+- **Manejo de Errores**: Implementación de manejo de errores robusto para proporcionar mensajes claros al usuario.
+- **Testabilidad**: Diseño que facilita la escritura de pruebas unitarias para cada componente.
+- **Extensibilidad**: Arquitectura que permite agregar nuevas funcionalidades con cambios mínimos en el código existente.
+
+## Estructura del Proyecto
+
+```
+interbank-academy-25/
+│
+├── domain/                     # Capa de dominio
+│   ├── models/                 # Modelos de dominio
+│   │   └── Transaction.py      # Clase Transaction
+│   └── enums/                  # Enumeraciones
+│       └── TransactionType.py  # Enum TransactionType
+│
+├── application/                # Capa de aplicación
+│   └── services/               # Servicios de aplicación
+│       └── TransactionService.py  # Servicio para procesar transacciones
+│
+├── infrastructure/             # Capa de infraestructura
+│   └── data/                   # Acceso a datos
+│       └── csv_reader.py       # Lectura de archivos CSV
+│
+├── presentation/               # Capa de presentación
+│   └── cli/                    # Interfaz de línea de comandos
+│       ├── cli_parser.py       # Parseo de argumentos de línea de comandos
+│       └── cli_display.py      # Visualización de resultados
+│
+├── tests/                      # Pruebas
+│   ├── domain/                 # Pruebas de la capa de dominio
+│   ├── application/            # Pruebas de la capa de aplicación
+│   └── infrastructure/         # Pruebas de la capa de infraestructura
+│
+├── main.py                     # Punto de entrada de la aplicación
+├── requirements.txt            # Dependencias del proyecto
+└── README.md                   # Documentación del proyecto
+```
